@@ -1,0 +1,45 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "v1",
+      "title": "TestDemo"
+    },
+    "basePath": "/",
+    "schemes": [
+      "https"
+    ],
+    "paths": {
+      "/test": {
+        "get": {
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "responses": {
+            "200": {
+              "description": "200 response"
+            }
+          },
+          "x-amazon-apigateway-integration": {
+            "responses": {
+              "default": {
+                "statusCode": "200",
+                "responseParameters": {},
+                "responseTemplates": {
+                  "application/json": "{\"name\": \"Hola mundo\"}"
+                }
+              }
+            },
+            "passthroughBehavior": "when_no_match",
+            "httpMethod": "GET",
+            "requestTemplates": {
+                  "application/json": "{\"statusCode\": 200}"
+            },
+            "type": "mock"
+          }
+        }
+      }
+    }
+  }  
