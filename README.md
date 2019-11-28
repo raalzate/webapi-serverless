@@ -1,31 +1,81 @@
-# Dotnet Lambda Function AWS
+# Dotnet Elastic Beanstalk 
 
-Ejemplo realizar una webapi usando serverless framework
+Ejemplo realizar una webapi usando docker y los comandos de elastic beanstalk 
 
-## Pre-config
-dotnet new webapi
+
+## Pre-install
+- Install awsbscli (Python)
+- Install awscli (Python)
+- Install dotnet (core > 2.1)
+
+
+
+
+# Lifecycle
+
+## 1. Run locally
+### Workspace /Instance
+```sh
 dotnet restore
 dotnet run
+```
 
-## Tool install
-dotnet tool install --global Amazon.Lambda.Tools --version 3.0.1
-dotnet tool update -g Amazon.Lambda.Tools
+## 2. Runner tests 
+### Workspace /InstanceTest
+```sh
+dotnet test
+```
 
-## Build
-.\build.ps1
+## 3. Verify Pact
+### Workspace /PactVerify
+```sh
+dotnet test
+```
 
-## Deploy
-serverless deploy -v -p FuncLambda
+## 4. Build
+### Workspace /Instance
+```sh
+./build.ps1
+```
 
-## Update 
+## 5. Push to ECR
+
+```sh
+export COMPONENT_NAME=instance
+export URL_REPO=<Repo ECR>
+ 
+echo "Building image [$COMPONENT_NAME]..."
+docker build -t $COMPONENT_NAME .
+docker tag $COMPONENT_NAME:latest $URL_REPO/$COMPONENT_NAME:latest
+
+echo "Pushing image [$COMPONENT_NAME]..."
+docker push $URL_REPO/$COMPONENT_NAME:latest
+```
+
+## 5. Deploy
+### Workspace /Instance
+
+### Run container on-premise 
+```sh
+docker run -d -p 80:80 --name dotnet-instance instance
+```
+
+# Documentation
+
+## Update definitions
+```sh
 aws apigateway import-rest-api --body file://swagger.json --region us-east-1
-aws apigateway put-rest-api --rest-api-id t855dxehoe --mode overwrite --body file://swagger.json --region us-east-1
+```
+
+```sh
+aws apigateway put-rest-api --rest-api-id <ID-API-GATEWAY> --mode overwrite --body file://swagger.json --region us-east-1
+```
 
 ## Create Stage Mock
-aws apigateway create-deployment --rest-api-id ffrogq4xk8 --stage-name mock --region us-east-1
+```sh
+aws apigateway create-deployment --rest-api-id <ID-API-GATEWAY> --stage-name mock --region us-east-1
+```
 
 
-docker build -t instance-dev .
 
-docker run -d -p 80:5000 --name dotnet-instance instance-dev
 

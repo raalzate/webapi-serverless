@@ -2,14 +2,14 @@
     "swagger": "2.0",
     "info": {
       "version": "v1",
-      "title": "TestDemo"
+      "title": "InstanceTest"
     },
-    "basePath": "/",
+    "basePath": "/api",
     "schemes": [
       "https"
     ],
     "paths": {
-      "/test": {
+      "/repos": {
         "get": {
           "consumes": [
             "application/json"
@@ -28,7 +28,7 @@
                 "statusCode": "200",
                 "responseParameters": {},
                 "responseTemplates": {
-                  "application/json": "{\"name\": \"Hola mundo\"}"
+                  "application/json": "[{\"name\": \"kubernetes\"}]"
                 }
               }
             },
