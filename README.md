@@ -4,8 +4,8 @@ Ejemplo realizar una webapi usando docker y los comandos de elastic beanstalk
 
 
 ## Pre-install
-- Install awsbscli (Python)
-- Install awscli (Python)
+- Install awsebcli (pip install awsebcli)
+- Install awscli (pip install awscli)
 - Install dotnet (core > 2.1)
 
 
