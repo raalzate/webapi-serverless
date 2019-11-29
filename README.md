@@ -54,7 +54,9 @@ docker push $URL_REPO/$COMPONENT_NAME:latest
 
 ## 5. Deploy
 ### Workspace /Instance
-
+```sh
+eb deploy
+```
 ### Run container on-premise 
 ```sh
 docker run -d -p 80:80 --name dotnet-instance instance
@@ -74,6 +76,18 @@ aws apigateway put-rest-api --rest-api-id <ID-API-GATEWAY> --mode overwrite --bo
 ## Create Stage Mock
 ```sh
 aws apigateway create-deployment --rest-api-id <ID-API-GATEWAY> --stage-name mock --region us-east-1
+```
+
+## Create Environment
+
+```sh
+eb init -p docker instance-dev
+eb create
+```
+
+## Run  Local
+```sh
+eb local run --port 80
 ```
 
 
